@@ -14,7 +14,7 @@ container$ ifconfig
 
 # another shell
 $ curl -X POST -d 'json={"hoge":"fuga"}&time='`date +%s` http://CONTAINER_HOST:9880/default
-$ curl http://CONTAINER_HOST/kibana
+$ firefox http://CONTAINER_HOST/kibana
 ```
 
 必要に応じてtd-agent.confを修正する:
