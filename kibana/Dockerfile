@@ -1,5 +1,4 @@
 # for kibana
-# http://d.hatena.ne.jp/yk5656/20140516/1401636399
 
 FROM centos:6
 MAINTAINER Takeru Ohta <phjgt308@gmail.com>
@@ -22,9 +21,11 @@ RUN unzip kibana-latest.zip
 RUN mv kibana-latest /var/www/html/kibana
 
 ADD start.sh /usr/local/bin/start_kibana
+ADD td-agent.conf.template /tmp/td-agent.conf.template
+RUN cat /tmp/td-agent.conf.template >> /etc/td-agent/td-agent.conf
 
 # 80=httpd, 8080=fluentd
 EXPOSE 80
-EXPOSE 8080
+EXPOSE 9880
 
 CMD start_kibana && /bin/bash
