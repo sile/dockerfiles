@@ -32,3 +32,9 @@ container$ service td-agent restart
 ```
 $ docker run -it --rm IMAGE /bin/bash
 ```
+
+### コンテナを全削除
+
+```
+$ docker rm `docker ps -a -q`
+```
