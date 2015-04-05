@@ -17,4 +17,4 @@ ADD erlang.spec /tmp/erlang.spec
 RUN scl enable devtoolset-2 'rpmbuild -bb --define "_topdir /tmp/rpm" /tmp/erlang.spec'
 
 # CMD
-CMD rpm -ivh /tmp/rpm/RPMS/x86_64/erlang-OTP17.5-1.x86_64.rpm && /bin/bash
+CMD rpm -ivh /tmp/rpm/RPMS/x86_64/erlang-OTP17.5-1.native.x86_64.rpm && /bin/bash
