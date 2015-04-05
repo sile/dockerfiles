@@ -22,11 +22,12 @@ Erlang Installation Package
 
 OPTS='--enable-threads --enable-smp-support --enable-kernel-pool --enable-hipe --enable-native-libs --without-wx --without-javac --without-megaco --without-asn1 --without-cosEvent --without-cosEventDomain --without-cosFileTransfer --without-cosNotification --without-cosProperty --without-cosTime --without-cosTransactions --without-debugger --without-diameter --without-eldap --without-erl_docgen --without-gs --without-ic --without-mnesia --without-observer --without-ose --without-otp_mibs --without-percept --without-snmp --without-test_server --without-webtool --disable-debug --disable-sctp'
 
-CFLAGS='-msse4.2 -O3' %configure ${OPTS} -prefix=%{erl_dest}
+CFLAGS='-O3 -march=core2 -mcx16 -msahf -maes -mpclmul -mpopcnt -msse4.2 --param l1-cache-size=32 --param l1-cache-line-size=64'
+CFLAGS=${CFLAGS} %configure ${OPTS} -prefix=%{erl_dest}
 
 # see: http://erlang.org/pipermail/erlang-questions/2014-April/078460.html
 make clean
-CFLAGS='-msse4.2 -O3' %configure ${OPTS} -prefix=%{erl_dest}
+CFLAGS=${CFLAGS} %configure ${OPTS} -prefix=%{erl_dest}
 
 make -j
 
