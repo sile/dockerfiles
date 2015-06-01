@@ -10,7 +10,7 @@ RUN yum -y install curl libcurl-devel wget unzip which git vim emacs gcc
 RUN curl -L http://toolbelt.treasuredata.com/sh/install-redhat.sh | sed -E 's/sudo|sudo -k//g' | sh
 RUN /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch
 
-# 9880=fluentd
-EXPOSE 9880
+# 8888=fluentd
+EXPOSE 8888
 
 CMD service td-agent start && /bin/bash
