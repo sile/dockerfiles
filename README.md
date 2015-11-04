@@ -10,11 +10,11 @@ Dockerfiles
 $ docker pull centos
 $ docker build -t kibana kibana/
 $ docker run -it --rm kibana
-container$ ifconfig
+container$ ip a
 
 # another shell
 $ curl -X POST -d 'json={"hoge":"fuga"}&time='`date +%s` http://CONTAINER_HOST:9880/default
-$ firefox http://CONTAINER_HOST/kibana
+$ firefox http://CONTAINER_HOST:5601/
 ```
 
 必要に応じてtd-agent.confを修正する:

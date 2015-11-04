@@ -3,5 +3,5 @@
 set -e
 
 service elasticsearch start
-service httpd start
 service td-agent start
+/opt/kibana/bin/kibana -q &
