@@ -4,7 +4,7 @@ FROM centos:7
 MAINTAINER Takeru Ohta <phjgt308@gmail.com>
 
 # yum packages
-RUN yum -y install curl libcurl-devel curl unzip which git vim emacs gcc java-1.8.0-openjdk initscripts sudo tar
+RUN yum -y install curl libcurl-devel which git vim emacs gcc java-1.8.0-openjdk initscripts tar
 
 # Elasticsearch
 RUN rpm -ivh https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.0.0/elasticsearch-2.0.0.rpm
@@ -12,12 +12,11 @@ RUN echo 'http.cors.allow-origin: "/.*/"' >> /etc/elasticsearch/elasticsearch.ym
 RUN echo 'http.cors.enabled: true' >> /etc/elasticsearch/elasticsearch.yml
 
 # Fluentd
-RUN curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sed -E 's/sudo|sudo -k//g' | sh
-RUN /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch
+RUN curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sed -E 's/sudo//g' | sh
+RUN /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch --no-ri --no-rdoc -V
 
 # Kibana
-RUN curl https://download.elastic.co/kibana/kibana/kibana-4.2.0-linux-x64.tar.gz -o kibana.tar.gz
-RUN tar zxf kibana.tar.gz
+RUN curl https://download.elastic.co/kibana/kibana/kibana-4.2.0-linux-x64.tar.gz | tar zxf -
 RUN mv kibana*/ /opt/kibana
 
 ADD start.sh /usr/local/bin/start_kibana
