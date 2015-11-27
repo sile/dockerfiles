@@ -5,6 +5,9 @@ FROM centos:7
 
 MAINTAINER takeru_ohta <phjgt308@gmail.com>
 
+##
+## rustc
+##
 RUN yum -y install vim git gcc gcc-c++ tar cmake make
 
 RUN curl http://www.musl-libc.org/releases/musl-latest.tar.gz | tar xzf -
@@ -29,3 +32,17 @@ RUN git clone https://github.com/rust-lang/rust.git /muslrust
 WORKDIR /muslrust
 RUN ./configure --target=x86_64-unknown-linux-musl --musl-root=/musldist
 RUN make -j 2 && make install
+
+##
+## cargo
+##
+WORKDIR /
+RUN curl https://static.rust-lang.org/cargo-dist/cargo-nightly-x86_64-unknown-linux-gnu.tar.gz | tar xzf -
+RUN cd cargo* && ./install.sh
+
+##
+## OpenSSL
+##
+RUN curl --tlsv1 https://www.openssl.org/source/openssl-1.0.2d.tar.gz | tar xzf -
+RUN cd openssl* && ./Configure --prefix=/musldist no-rc4 os/compiler:/musldist/bin/musl-gcc && \
+    make && make install
