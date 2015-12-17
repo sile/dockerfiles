@@ -43,6 +43,6 @@ RUN cd cargo* && ./install.sh
 ##
 ## OpenSSL
 ##
-RUN curl --tlsv1 https://www.openssl.org/source/openssl-1.0.2d.tar.gz | tar xzf -
-RUN cd openssl* && ./Configure --prefix=/musldist no-rc4 os/compiler:/musldist/bin/musl-gcc && \
+RUN curl --tlsv1 https://www.openssl.org/source/openssl-1.0.2e.tar.gz | tar xzf -
+RUN cd openssl* && ./Configure no-asm --prefix=/musldist os/compiler:/musldist/bin/musl-gcc && \
     make && make install
