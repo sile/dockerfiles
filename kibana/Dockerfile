@@ -7,7 +7,7 @@ MAINTAINER Takeru Ohta <phjgt308@gmail.com>
 RUN yum -y install curl libcurl-devel which git vim emacs gcc java-1.8.0-openjdk initscripts tar
 
 # Elasticsearch
-RUN rpm -ivh https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.0.0/elasticsearch-2.0.0.rpm
+RUN rpm -ivh https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.1.1/elasticsearch-2.1.1.rpm
 RUN echo 'http.cors.allow-origin: "/.*/"' >> /etc/elasticsearch/elasticsearch.yml
 RUN echo 'http.cors.enabled: true' >> /etc/elasticsearch/elasticsearch.yml
 
@@ -16,7 +16,7 @@ RUN curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | s
 RUN /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch --no-ri --no-rdoc -V
 
 # Kibana
-RUN curl https://download.elastic.co/kibana/kibana/kibana-4.2.0-linux-x64.tar.gz | tar zxf -
+RUN curl https://download.elastic.co/kibana/kibana/kibana-4.3.1-linux-x64.tar.gz | tar zxf -
 RUN mv kibana*/ /opt/kibana
 
 ADD start.sh /usr/local/bin/start_kibana
