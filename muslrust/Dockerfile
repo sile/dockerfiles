@@ -28,7 +28,7 @@ WORKDIR libunwind/build
 RUN cmake -DLLVM_PATH=../../.. -DLIBUNWIND_ENABLE_SHARED=0 ..
 RUN make -j 2 && cp lib/libunwind.a /musldist/lib/
 
-RUN git clone https://github.com/rust-lang/rust.git /muslrust
+RUN git clone -b 1.7.0 https://github.com/rust-lang/rust.git /muslrust
 WORKDIR /muslrust
 RUN ./configure --target=x86_64-unknown-linux-musl --musl-root=/musldist
 RUN make -j 2 && make install
@@ -43,6 +43,6 @@ RUN cd cargo* && ./install.sh
 ##
 ## OpenSSL
 ##
-RUN curl --tlsv1 https://www.openssl.org/source/openssl-1.0.2e.tar.gz | tar xzf -
+RUN curl --tlsv1 https://www.openssl.org/source/openssl-1.0.2g.tar.gz | tar xzf -
 RUN cd openssl* && ./Configure no-asm --prefix=/musldist os/compiler:/musldist/bin/musl-gcc && \
     make && make install
