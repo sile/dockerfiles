@@ -13,14 +13,14 @@ RUN yum -y install vim git gcc gcc-c++ tar cmake make
 RUN curl http://www.musl-libc.org/releases/musl-latest.tar.gz | tar xzf -
 RUN cd musl-* && ./configure --disable-shared --prefix=/musldist && make -j 2 && make install
 
-RUN curl http://llvm.org/releases/3.7.0/llvm-3.7.0.src.tar.xz | tar xJf -
-WORKDIR llvm-3.7.0.src/projects/
+RUN curl http://llvm.org/releases/3.8.0/llvm-3.8.0.src.tar.xz | tar xJf -
+WORKDIR llvm-3.8.0.src/projects/
 
-RUN curl http://llvm.org/releases/3.7.0/libcxxabi-3.7.0.src.tar.xz | tar xJf -
-RUN mv libcxxabi-3.7.0.src libcxxabi
+RUN curl http://llvm.org/releases/3.8.0/libcxxabi-3.8.0.src.tar.xz | tar xJf -
+RUN mv libcxxabi-3.8.0.src libcxxabi
 
-RUN curl http://llvm.org/releases/3.7.0/libunwind-3.7.0.src.tar.xz | tar xJf -
-RUN mv libunwind-3.7.0.src libunwind
+RUN curl http://llvm.org/releases/3.8.0/libunwind-3.8.0.src.tar.xz | tar xJf -
+RUN mv libunwind-3.8.0.src libunwind
 
 RUN mkdir libunwind/build
 WORKDIR libunwind/build
