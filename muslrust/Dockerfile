@@ -6,12 +6,20 @@ FROM centos:7
 MAINTAINER takeru_ohta <phjgt308@gmail.com>
 
 ##
+## args (require Docker 1.9.0 or newer)
+##
+ARG RUST_VER=1.8.0
+ARG MAKE_OPTS="-j 2"
+
+RUN echo "RUST_VER=${RUST_VER} MAKE_OPTS=${MAKE_OPTS}"
+
+##
 ## rustc
 ##
-RUN yum -y install vim git gcc gcc-c++ tar cmake make
+RUN yum -y install vim git gcc gcc-c++ tar cmake make file
 
 RUN curl http://www.musl-libc.org/releases/musl-latest.tar.gz | tar xzf -
-RUN cd musl-* && ./configure --disable-shared --prefix=/musldist && make -j 2 && make install
+RUN cd musl-* && ./configure --disable-shared --prefix=/musldist && make ${MAKE_OPTS} && make install
 
 RUN curl http://llvm.org/releases/3.8.0/llvm-3.8.0.src.tar.xz | tar xJf -
 WORKDIR llvm-3.8.0.src/projects/
@@ -26,12 +34,12 @@ RUN mkdir libunwind/build
 WORKDIR libunwind/build
 
 RUN cmake -DLLVM_PATH=../../.. -DLIBUNWIND_ENABLE_SHARED=0 ..
-RUN make -j 2 && cp lib/libunwind.a /musldist/lib/
+RUN make ${MAKE_OPTS} && cp lib/libunwind.a /musldist/lib/
 
-RUN git clone -b 1.7.0 https://github.com/rust-lang/rust.git /muslrust
+RUN git clone -b ${RUST_VER} https://github.com/rust-lang/rust.git /muslrust
 WORKDIR /muslrust
 RUN ./configure --target=x86_64-unknown-linux-musl --musl-root=/musldist
-RUN make -j 2 && make install
+RUN make ${MAKE_OPTS} && make install
 
 ##
 ## cargo
